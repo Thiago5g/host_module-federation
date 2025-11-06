@@ -1,6 +1,6 @@
 # Host Application - Module Federation
 
-Este é o projeto **Host** configurado com:
+This is the **Host** project configured with:
 
 - ⚡ **Vite** - Build tool
 - ⚛️ **React 19** - Framework
@@ -9,15 +9,15 @@ Este é o projeto **Host** configurado com:
 - 🔧 **ESLint** - Code quality
 - 🔗 **Module Federation** - Micro-frontends
 
-## 🚀 Como usar
+## 🚀 How to use
 
-### Desenvolvimento
+### Development
 
 ```bash
 npm run dev
 ```
 
-O app estará disponível em `http://localhost:5173`
+The app will be available at `http://localhost:5173`
 
 ### Build
 
@@ -29,17 +29,17 @@ npm run build
 
 ```bash
 npm run preview
-# ou
+# or
 npm run serve
 ```
 
 ## 📦 Module Federation
 
-Este projeto está configurado como **Host** e pode consumir módulos remotos.
+This project is configured as a **Host** and can consume remote modules.
 
-### Configurando Remotes
+### Configuring Remotes
 
-Edite o arquivo `vite.config.ts` para adicionar aplicações remotas:
+Edit the `vite.config.ts` file to add remote applications:
 
 ```typescript
 federation({
@@ -51,35 +51,35 @@ federation({
 })
 ```
 
-### Consumindo Módulos Remotos
+### Consuming Remote Modules
 
 ```typescript
-// Importe componentes remotos dinamicamente
+// Import remote components dynamically
 const RemoteComponent = React.lazy(() => import('remote_app/Component'));
 
-// Use no seu componente
+// Use in your component
 <Suspense fallback={<div>Loading...</div>}>
   <RemoteComponent />
 </Suspense>
 ```
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 host/
 ├── src/
-│   ├── App.tsx          # Componente principal
+│   ├── App.tsx          # Main component
 │   ├── main.tsx         # Entry point
 │   └── index.css        # Tailwind imports
-├── vite.config.ts       # Configuração Vite + Federation
-├── tailwind.config.js   # Configuração Tailwind
-├── tsconfig.json        # Configuração TypeScript
-└── .eslintrc.cjs        # Configuração ESLint
+├── vite.config.ts       # Vite + Federation config
+├── tailwind.config.js   # Tailwind config
+├── tsconfig.json        # TypeScript config
+└── .eslintrc.cjs        # ESLint config
 ```
 
 ## 🎨 Tailwind CSS
 
-O Tailwind está totalmente configurado. Use classes utilitárias diretamente nos componentes:
+Tailwind is fully configured. Use utility classes directly in components:
 
 ```tsx
 <div className="bg-blue-500 text-white p-4 rounded-lg">
@@ -93,10 +93,10 @@ O Tailwind está totalmente configurado. Use classes utilitárias diretamente no
 npm run lint
 ```
 
-## 📝 Notas
+## 📝 Notes
 
-- O projeto usa React 19 com as últimas features
-- Module Federation configurado com `@originjs/vite-plugin-federation`
-- TypeScript strict mode habilitado
-- Tailwind com JIT mode para builds otimizadas
+- The project uses React 19 with the latest features
+- Module Federation configured with `@originjs/vite-plugin-federation`
+- TypeScript strict mode enabled
+- Tailwind with JIT mode for optimized builds
 ```

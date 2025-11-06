@@ -98,10 +98,10 @@ const Home: React.FC = () => {
                         <div className="flex-1">
                             <h3 className="text-xl font-bold text-gray-800 mb-1">✅ Logged in successfully!</h3>
                             <div className="space-y-1 text-sm text-gray-700">
-                                <p><strong>Name:</strong> {user.nome}</p>
+                                <p><strong>Name:</strong> {user.name}</p>
                                 <p><strong>Email:</strong> {user.email}</p>
-                                <p><strong>Role:</strong> {user.cargo}</p>
-                                <p><strong>Department:</strong> {user.departamento}</p>
+                                <p><strong>Role:</strong> {user.role}</p>
+                                <p><strong>Department:</strong> {user.department}</p>
                             </div>
                             <details className="mt-3">
                                 <summary className="text-xs font-medium text-indigo-600 cursor-pointer hover:text-indigo-700">

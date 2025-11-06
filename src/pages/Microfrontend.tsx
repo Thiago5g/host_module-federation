@@ -10,7 +10,7 @@ export default function Microfrontend() {
         <div className="space-y-4">
             <div>
                 <h1 className="text-xl font-semibold text-gray-800">Microfrontend (Module Federation)</h1>
-                <p className="text-sm text-gray-500">Carregando o componente exposto pelo remote via Module Federation.</p>
+                <p className="text-sm text-gray-500">Loading the component exposed by the remote via Module Federation.</p>
             </div>
             <div className="rounded-md border bg-white p-4">
                 <Suspense fallback={<div className="text-sm text-gray-600">Loading remote content...</div>}>
