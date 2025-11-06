@@ -154,7 +154,7 @@ const Home: React.FC = () => {
                         </div>
                         <h3 className="text-xl font-semibold text-gray-800">Vite</h3>
                     </div>
-                    <p className="text-gray-700">
+                    <p className="text-gray-600">
                         Lightning-fast build tool with HMR for instant feedback during development.
                     </p>
                 </div>
