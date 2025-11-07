@@ -27,8 +27,8 @@ export const Sidebar = () => {
     return (
         <aside className="w-64 shrink-0 bg-gray-50 border-r">
             <div className="px-4 py-3 border-b">
-                <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-md bg-indigo-600 text-white grid place-items-center text-xs font-bold">TGX</div>
+                <div className="flex items-center gap-3">
+
                     <span className="text-sm font-medium text-gray-700">Dashboard</span>
                 </div>
             </div>
@@ -40,11 +40,10 @@ export const Sidebar = () => {
                             <li key={item.path}>
                                 <Link
                                     to={item.path}
-                                    className={`group flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${
-                                        isActive
+                                    className={`group flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${isActive
                                             ? 'bg-indigo-600 text-white'
                                             : 'text-gray-700 hover:bg-indigo-50'
-                                    }`}
+                                        }`}
                                 >
                                     <span className={`inline-flex ${isActive ? 'text-white' : 'text-indigo-600 group-hover:text-indigo-700'}`}>
                                         {item.icon}

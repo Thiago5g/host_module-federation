@@ -7,7 +7,12 @@ export const Header = () => {
         <header className="bg-white border-b shadow-sm">
             <div className="mx-auto px-4 h-[50px]">
                 <div className="h-full flex items-center justify-between">
-
+  <img
+                      src="/TGX-LOGO.png"
+                      alt="TGX Solution"
+                      className="h-10 ml-14 w-auto object-contain select-none"
+                      loading="lazy"
+                    />
                     <div className="flex items-center gap-3 ml-auto">
                         {user && (
                             <>
