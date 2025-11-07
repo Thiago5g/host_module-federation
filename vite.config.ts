@@ -4,10 +4,11 @@ import federation from '@originjs/vite-plugin-federation'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  console.log(env.VITE_REMOTE_APP_URL, 'env.VITE_REMOTE_APP_URL')
+  console.log(process.env.VITE_REMOTE_APP_URL, 'process.env.VITE_REMOTE_APP_URL via PROCESS )))))))))))))))')
+  console.log(env.VITE_REMOTE_APP_URL, 'env.VITE_REMOTE_APP_URL via env mode ------------------')
   const remoteUrl = 'https://remote-module-federation.vercel.app'
   const remoteEntry = `${remoteUrl}/assets/remoteEntry.js`
-  
+
   console.log('🔍 VITE_REMOTE_APP_URL:', remoteUrl)
   console.log('🌐 Remote URL completa:', remoteEntry)
 
