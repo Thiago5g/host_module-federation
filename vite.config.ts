@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
       federation({
         name: 'host',
         remotes: {
-          remote: `${env.REMOTE_APP_URL || 'http://localhost:5001'}/assets/remoteEntry.js`
+          remote: `${env.REMOTE_APP_URL || 'https://remote-module-federation.vercel.app/'}/assets/remoteEntry.js`
         },
         shared: ['react', 'react-dom']
       })
