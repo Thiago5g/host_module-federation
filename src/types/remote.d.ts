@@ -11,6 +11,10 @@ declare module 'remote/App' {
   interface RemoteAppProps {
     authToken?: string | null
     authUser?: User | null
+    sharedCount?: number
+    onIncrement?: () => void
+    onDecrement?: () => void
+    language?: 'pt' | 'en' | 'es'
   }
 
   const App: React.ComponentType<RemoteAppProps>;

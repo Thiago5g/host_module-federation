@@ -16,10 +16,13 @@ export default defineConfig(({ mode }) => {
       react(),
       federation({
         name: 'host',
+        exposes: {
+          './store': './src/store/globalStore.ts'
+        },
         remotes: {
           remote: remoteEntry
         },
-        shared: ['react', 'react-dom']
+        shared: ['react', 'react-dom', 'zustand']
       })
     ],
     build: {

@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import { globalStore } from '../store/globalStore'
 import type { ReactNode } from 'react'
 
 export interface User {
@@ -57,6 +58,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (email && senha) {
       setToken(MOCK_TOKEN)
       setUser(MOCK_USER)
+      globalStore.getState().setAuthToken(MOCK_TOKEN)
       
       localStorage.setItem('auth_token', MOCK_TOKEN)
       localStorage.setItem('auth_user', JSON.stringify(MOCK_USER))
@@ -73,6 +75,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     console.log('👋 Logging out...')
     setToken(null)
     setUser(null)
+    globalStore.getState().setAuthToken(null)
     localStorage.removeItem('auth_token')
     localStorage.removeItem('auth_user')
     console.log('✅ Logout successful')
