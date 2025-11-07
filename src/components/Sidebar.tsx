@@ -56,9 +56,6 @@ export const Sidebar = () => {
                     })}
                 </ul>
             </nav>
-            <div className="mt-auto p-3 border-t text-xs text-gray-500">
-                <p>v1.0.0</p>
-            </div>
         </aside>
     );
 }

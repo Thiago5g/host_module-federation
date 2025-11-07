@@ -1,17 +1,14 @@
 import { useAuth } from '../hooks/useAuth'
 
 export const Header = () => {
-    const { user, logout, isAuthenticated } = useAuth()
+    const { user, logout } = useAuth()
 
     return (
         <header className="bg-white border-b shadow-sm">
-            <div className="mx-auto px-4 h-[30px]">
+            <div className="mx-auto px-4 h-[50px]">
                 <div className="h-full flex items-center justify-between">
-                    <div className="text-xs font-semibold text-gray-600">
-                        {isAuthenticated && '🔐 Authenticated'}
-                    </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 ml-auto">
                         {user && (
                             <>
                                 <div className="flex items-center gap-2">
@@ -20,9 +17,9 @@ export const Header = () => {
                                     </div>
                                     <span className="text-sm text-gray-700 hidden sm:inline">{user.name}</span>
                                 </div>
-                                <button 
+                                <button
                                     onClick={logout}
-                                    className="text-xs text-red-600 hover:text-red-700 font-medium"
+                                    className="text-xs text-red-600 hover:text-red-700 font-medium cursor-pointer"
                                 >
                                     Logout
                                 </button>

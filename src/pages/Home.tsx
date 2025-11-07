@@ -1,10 +1,12 @@
 import React, { useState, lazy, Suspense } from 'react';
+import { useStore } from 'zustand';
+import { globalStore, type GlobalState } from '../store/globalStore';
 import { useAuth } from '../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 const RemoteButton = lazy(() => import('remote/Button'));
 
 const Home: React.FC = () => {
-    const [count, setCount] = useState(0);
     const { user, login, isAuthenticated } = useAuth();
     const [email, setEmail] = useState('joao.silva@tgx.com.br');
     const [senha, setSenha] = useState('123456');
@@ -22,16 +24,41 @@ const Home: React.FC = () => {
         }
     };
 
+    const { t, i18n } = useTranslation()
+    const language = useStore(globalStore, (s: GlobalState) => s.language)
+    const setLanguage = globalStore.getState().setLanguage
+
     return (
         <div className="space-y-6">
-            <div>
-                <h1 className="text-4xl font-bold text-gray-800 mb-2">
-                    Welcome to Host Application
-                </h1>
-                <p className="text-lg text-gray-600">
-                    This is the home page with local content
-                </p>
+            <div className='flex flex-row justify-between'>
+                <div className='flex flex-col'>
+                    <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                        {t('home_title')}
+                    </h1>
+                    <p className="text-lg text-gray-600">
+                        {t('home_subtitle')}
+                    </p>
+                </div>
+                <div className='flex gap-2'>
+                    <span className='font-bold'>{t('language')}:</span>
+                    <select
+                        value={language}
+                        onChange={(e) => {
+                            const lng = e.target.value as 'pt' | 'en' | 'es'
+                            setLanguage(lng)
+                            i18n.changeLanguage(lng)
+                        }}
+                        className="text-xs bg-white border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 h-8 -mt-1"
+                    >
+                        <option value="en">English</option>
+                        <option value="pt">Português</option>
+                        <option value="es">Español</option>
+                    </select>
+                </div>
+
             </div>
+
+
 
             {!isAuthenticated && (
                 <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl shadow-lg p-8 border border-indigo-100">
@@ -42,10 +69,10 @@ const Home: React.FC = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
                             </div>
-                            <h2 className="text-2xl font-bold text-gray-800 mb-2">Login</h2>
+                            <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('login')}</h2>
                             <p className="text-gray-600">Sign in to test token sharing</p>
                         </div>
-                        
+
                         <form onSubmit={handleLogin} className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -59,7 +86,7 @@ const Home: React.FC = () => {
                                     placeholder="your@email.com"
                                 />
                             </div>
-                            
+
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     Password
@@ -72,17 +99,17 @@ const Home: React.FC = () => {
                                     placeholder="******"
                                 />
                             </div>
-                            
+
                             <button
                                 type="submit"
                                 disabled={loading}
                                 className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                {loading ? 'Signing in...' : 'Sign In'}
+                                {loading ? t('signing_in') : t('sign_in')}
                             </button>
-                            
+
                             <p className="text-xs text-center text-gray-500 mt-4">
-                                💡 Tip: Any email/password works (mock)
+                                💡 {t('sign_tip')}
                             </p>
                         </form>
                     </div>
@@ -118,30 +145,15 @@ const Home: React.FC = () => {
                 </div>
             )}
 
+
             <div className="bg-white rounded-xl shadow-lg p-8">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Local Counter Component
+                    {t('shared_counter_title')}
                 </h2>
                 <p className="text-gray-600 mb-6">
-                    This counter is running locally in the Host application.
+                    {t('shared_counter_desc')}
                 </p>
-                <div className="flex items-center justify-center gap-4">
-                    <button
-                        onClick={() => setCount((count) => count - 1)}
-                        className="px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors text-xl"
-                    >
-                        -
-                    </button>
-                    <span className="text-5xl font-bold text-indigo-600 min-w-[120px] text-center">
-                        {count}
-                    </span>
-                    <button
-                        onClick={() => setCount((count) => count + 1)}
-                        className="px-8 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors text-xl"
-                    >
-                        +
-                    </button>
-                </div>
+                <SharedCounterHost />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -200,6 +212,32 @@ const Home: React.FC = () => {
                         Load remote components dynamically and share dependencies across apps.
                     </p>
                 </div>
+                <div className="bg-gradient-to-br from-amber-50 to-yellow-100 rounded-xl p-6">
+                    <div className="flex items-center space-x-3 mb-3">
+                        <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center">
+                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6l4 2" />
+                            </svg>
+                        </div>
+                        <h3 className="text-xl font-semibold text-gray-800">{t('tech_zustand_title')}</h3>
+                    </div>
+                    <p className="text-gray-700">
+                        {t('tech_zustand_desc')}
+                    </p>
+                </div>
+                <div className="bg-gradient-to-br from-pink-50 to-rose-100 rounded-xl p-6">
+                    <div className="flex items-center space-x-3 mb-3">
+                        <div className="w-10 h-10 bg-pink-500 rounded-lg flex items-center justify-center">
+                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m2 6h6m-3-3v6M5 9h4m-2-2v4" />
+                            </svg>
+                        </div>
+                        <h3 className="text-xl font-semibold text-gray-800">{t('tech_i18n_title')}</h3>
+                    </div>
+                    <p className="text-gray-700">
+                        {t('tech_i18n_desc')}
+                    </p>
+                </div>
             </div>
 
             <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
@@ -234,7 +272,7 @@ const Home: React.FC = () => {
                         <p className="text-gray-600 mb-4">
                             This button was imported from the remote via Module Federation! It's being dynamically loaded from <code className="bg-purple-100 px-2 py-1 rounded text-purple-700 text-sm">remote/Button</code>
                         </p>
-                        
+
                         <div className="flex flex-wrap gap-3">
                             <Suspense fallback={<div className="text-sm text-gray-500">Loading button...</div>}>
                                 <RemoteButton variant="primary" onClick={() => alert('Primary Button from Remote!')}>
@@ -265,3 +303,21 @@ const Home: React.FC = () => {
 }
 
 export default Home
+
+function SharedCounterHost() {
+    const count = useStore(globalStore, (s: GlobalState) => s.count)
+    const setCount = globalStore.getState().setCount
+    return (
+        <div className="flex items-center justify-center gap-4">
+            <button
+                onClick={() => setCount(count - 1)}
+                className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg"
+            >-</button>
+            <span className="text-5xl font-bold text-indigo-600 min-w-[120px] text-center">{count}</span>
+            <button
+                onClick={() => setCount(count + 1)}
+                className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg"
+            >+</button>
+        </div>
+    )
+}
